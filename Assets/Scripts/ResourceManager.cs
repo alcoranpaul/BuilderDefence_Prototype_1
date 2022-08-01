@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,11 @@ public class ResourceManager : MonoBehaviour {
 
     //Singleton
     public static ResourceManager Instance { get; private set; }
+
+    //Event Handle
+    public event EventHandler OnResourceAmountChange;
+
+    //Instance variables
     private Dictionary<ResourceTypeSO, int> resourceAmountDict;
 
     private void Awake() {
@@ -24,6 +30,11 @@ public class ResourceManager : MonoBehaviour {
 
     public void AddResource(ResourceTypeSO resourceType, int amount) {
         resourceAmountDict[resourceType] += amount;
+        OnResourceAmountChange?.Invoke(this, EventArgs.Empty); //Even Trigger and Null check
         TestLog();
+    }
+
+    public int GetResourceAmount(ResourceTypeSO resourceType) {
+        return resourceAmountDict[resourceType];
     }
 }
