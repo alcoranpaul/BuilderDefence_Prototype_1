@@ -36,7 +36,7 @@ public class ResourceUI : MonoBehaviour {
     }
 
     private void UpdateResouceAmount() {
-        foreach (ResourceTypeSO resourceType in resourceTypeList.GetResourceTypeList()) {
+        foreach (ResourceTypeSO resourceType in resourcesTypeTransformDict.Keys) {
             int resourceAmount = ResourceManager.Instance.GetResourceAmount(resourceType);
             Transform resourceTransform = resourcesTypeTransformDict[resourceType];
             resourceTransform.Find("text").GetComponent<TextMeshProUGUI>().SetText(resourceAmount.ToString());

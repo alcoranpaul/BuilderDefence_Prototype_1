@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,5 +7,9 @@ public class BuildingTypesListSO : ScriptableObject {
 
     public BuildingTypesSO GetBuildingType(int index) {
         return buildingTypesList[index];
+    }
+
+    public List<BuildingTypesSO> GetBuildingType() {
+        return buildingTypesList;
     }
 }
