@@ -31,10 +31,26 @@ public class ResourceManager : MonoBehaviour {
     public void AddResource(ResourceTypeSO resourceType, int amount) {
         resourceAmountDict[resourceType] += amount;
         OnResourceAmountChange?.Invoke(this, EventArgs.Empty); //Even Trigger and Null check
-        TestLog();
+
     }
 
     public int GetResourceAmount(ResourceTypeSO resourceType) {
         return resourceAmountDict[resourceType];
+    }
+
+    public bool CanAfford(ResourceAmount[] resourceAmounts) {
+        foreach (ResourceAmount resourceAmount in resourceAmounts) {
+            if (GetResourceAmount(resourceAmount.resourceType) < resourceAmount.amount) {
+                //Can not Afford
+                return false;
+            }
+        }
+        return true;
+    }
+    public bool SpendResources(ResourceAmount[] resourceAmounts) {
+        foreach (ResourceAmount resourceAmount in resourceAmounts) {
+            resourceAmountDict[resourceAmount.resourceType] -= resourceAmount.amount;
+        }
+        return true;
     }
 }

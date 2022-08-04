@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class BuildingTypeUI : MonoBehaviour {
     [SerializeField] private Sprite arrowSprite;
+    [SerializeField] private List<BuildingTypesSO> ignoredBuildingTypes;
     private Dictionary<BuildingTypesSO, Transform> btnBuildingTypeDict;
     private Transform arrowBtn;
     private void Awake() {
@@ -23,6 +24,7 @@ public class BuildingTypeUI : MonoBehaviour {
 
     private void Start() {
         BuildingManager.Instance.OnActiveBuildingTypeChange += BuildingManager_OnActiveBuildingTypeChange;
+        UpdateActiveBuildingTypeButton();
     }
 
     private void BuildingManager_OnActiveBuildingTypeChange(object sender, BuildingManager.OnActiveBuildingTypeChangeEventArgs e) {
@@ -60,6 +62,7 @@ public class BuildingTypeUI : MonoBehaviour {
     private void SetBuildingBtn(Transform btnTemplate, float offSetAmount, int index) {
         BuildingTypesListSO buildingTypeList = Resources.Load<BuildingTypesListSO>(typeof(BuildingTypesListSO).Name);
         foreach (BuildingTypesSO buildingType in buildingTypeList.GetBuildingType()) {
+            if (ignoredBuildingTypes.Contains(buildingType)) continue;
             Transform btnTransform = Instantiate(btnTemplate, transform);
             btnTransform.gameObject.SetActive(true);
 

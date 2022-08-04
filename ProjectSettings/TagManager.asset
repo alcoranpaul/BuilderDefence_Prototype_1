@@ -47,3 +47,6 @@ TagManager:
   - name: Top
     uniqueID: 1900932103
     locked: 0
+  - name: Overlays
+    uniqueID: 3709354363
+    locked: 0

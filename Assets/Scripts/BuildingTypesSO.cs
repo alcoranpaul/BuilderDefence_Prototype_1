@@ -6,6 +6,8 @@ public class BuildingTypesSO : ScriptableObject {
     [SerializeField] private Transform prefab;
     [SerializeField] private ResourceGeneratorData resourceGeneratorData;
     [SerializeField] private Sprite sprite;
+    [SerializeField] private float minBuildingRadius;
+    [SerializeField] private ResourceAmount[] constructionResourceCostArray;
 
     public string GetName() {
         return nameString;
@@ -26,9 +28,19 @@ public class BuildingTypesSO : ScriptableObject {
         return resourceGeneratorData.resourceType;
     }
 
+    public ResourceGeneratorData GetResourceGeneratorData() {
+        return resourceGeneratorData;
+    }
+
     public Sprite GetSprite() {
         return sprite;
     }
 
+    public float GetMinBuildingRadius() {
+        return minBuildingRadius;
+    }
 
+    public ResourceAmount[] GetResourceAmounts() {
+        return constructionResourceCostArray;
+    }
 }
