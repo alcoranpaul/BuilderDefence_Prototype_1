@@ -5,13 +5,12 @@ public class ResourceGenerator : MonoBehaviour {
     private float timerMax;
     private BuildingTypesSO buildingType;
     private ResourceGeneratorData resourceGeneratorData;
+    private GameObject circle;
     private int resourcesAmount;
 
     private void Awake() {
         buildingType = GetComponent<BuildingTypeHolder>().buildingType;
         resourceGeneratorData = GetComponent<BuildingTypeHolder>().buildingType.GetResourceGeneratorData();
-
-
         timerMax = resourceGeneratorData.timerMax;
     }
 
