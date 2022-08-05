@@ -43,4 +43,12 @@ public class BuildingTypesSO : ScriptableObject {
     public ResourceAmount[] GetResourceAmounts() {
         return constructionResourceCostArray;
     }
+
+    public string GetResourceCostString() {
+        string str = "";
+        foreach (ResourceAmount resource in constructionResourceCostArray) {
+            str += "<color=#" + resource.resourceType.GetColorHex() + ">" + resource.resourceType.GetShortName() + resource.amount + "</color> ";
+        }
+        return str;
+    }
 }

@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class BuildingManager : MonoBehaviour {
+    public static BuildingManager Instance { get; private set; } //Singleton
 
     public event EventHandler<OnActiveBuildingTypeChangeEventArgs> OnActiveBuildingTypeChange;
     public class OnActiveBuildingTypeChangeEventArgs : EventArgs {
         public BuildingTypesSO activeBuildingType;
     }
-    public static BuildingManager Instance { get; private set; } //Singleton
     private BuildingTypesSO activeBuildingType;
     private BuildingTypesListSO buildingTypeList;
     private Camera m_Camera;
@@ -22,10 +22,18 @@ public class BuildingManager : MonoBehaviour {
 
     private void Update() {
         if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
-            if (activeBuildingType != null && CanSpawnBuilding(activeBuildingType, Utilities.GetMousePosition())) {
-                if (ResourceManager.Instance.CanAfford(activeBuildingType.GetResourceAmounts())) {
-                    ResourceManager.Instance.SpendResources(activeBuildingType.GetResourceAmounts());
-                    Instantiate(activeBuildingType.GetPrefab(), Utilities.GetMousePosition(), Quaternion.identity);
+            if (activeBuildingType != null) {
+                if (CanSpawnBuilding(activeBuildingType, Utilities.GetMousePosition(), out string errorMessaage)) {
+                    if (ResourceManager.Instance.CanAfford(activeBuildingType.GetResourceAmounts())) {
+                        ResourceManager.Instance.SpendResources(activeBuildingType.GetResourceAmounts());
+                        Instantiate(activeBuildingType.GetPrefab(), Utilities.GetMousePosition(), Quaternion.identity);
+                    }
+                    else {
+                        TooltipUI.Instance.Show("Cannot afford " + activeBuildingType.GetResourceCostString(), new TooltipUI.TooltipTimer(2f));
+                    }
+                }
+                else {
+                    TooltipUI.Instance.Show(errorMessaage, new TooltipUI.TooltipTimer(2f));
                 }
             }
         }
@@ -42,13 +50,16 @@ public class BuildingManager : MonoBehaviour {
         return activeBuildingType;
     }
 
-    private bool CanSpawnBuilding(BuildingTypesSO buildingType, Vector3 position) {
+    public bool CanSpawnBuilding(BuildingTypesSO buildingType, Vector3 position, out string errorMessage) {
         BoxCollider2D boxCollider2D = buildingType.GetPrefab().GetComponent<BoxCollider2D>();
 
         // Is Area clear?
         Collider2D[] collider2D = Physics2D.OverlapBoxAll(position + (Vector3)boxCollider2D.offset, boxCollider2D.size, 0);
         bool isAreaClear = collider2D.Length == 0;
-        if (!isAreaClear) return false;
+        if (!isAreaClear) {
+            errorMessage = "Area is not clear!!";
+            return false;
+        }
 
         // Is Building same type as spawned?
         collider2D = Physics2D.OverlapCircleAll(position, buildingType.GetMinBuildingRadius());
@@ -56,8 +67,8 @@ public class BuildingManager : MonoBehaviour {
             BuildingTypeHolder buildingTypeHolder = collider.GetComponent<BuildingTypeHolder>();
             // Am I spawning a building?
             if (buildingTypeHolder != null) {
-
                 if (buildingTypeHolder.buildingType == buildingType) {
+                    errorMessage = "Cannot spawn near another " + buildingType.GetName() + "!";
                     return false;
                 }
             }
@@ -70,10 +81,12 @@ public class BuildingManager : MonoBehaviour {
             BuildingTypeHolder buildingTypeHolder = collider.GetComponent<BuildingTypeHolder>();
             // Am I spawning a building?
             if (buildingTypeHolder != null) {
+                errorMessage = "";
                 return true;
             }
         }
 
+        errorMessage = "Cannot spawn far from other buildings!!";
         return false;
 
     }

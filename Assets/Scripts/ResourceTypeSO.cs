@@ -4,6 +4,8 @@ using UnityEngine;
 public class ResourceTypeSO : ScriptableObject {
     [SerializeField] private string nameString;
     [SerializeField] private Sprite sprite;
+    [SerializeField] private string shortName;
+    [SerializeField] private string colorHex;
     public string GetName() {
         return nameString;
     }
@@ -12,4 +14,11 @@ public class ResourceTypeSO : ScriptableObject {
         return sprite;
     }
 
+    public string GetShortName() {
+        return shortName;
+    }
+
+    public string GetColorHex() {
+        return colorHex;
+    }
 }
