@@ -2,15 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class BuildingManager : MonoBehaviour {
+    //Instance Variables
+    [SerializeField] private Building HQBuilding;
+    private BuildingTypesSO activeBuildingType;
+    private BuildingTypesListSO buildingTypeList;
+    private Camera m_Camera;
+
     public static BuildingManager Instance { get; private set; } //Singleton
 
+    //Instance Events
     public event EventHandler<OnActiveBuildingTypeChangeEventArgs> OnActiveBuildingTypeChange;
     public class OnActiveBuildingTypeChangeEventArgs : EventArgs {
         public BuildingTypesSO activeBuildingType;
     }
-    private BuildingTypesSO activeBuildingType;
-    private BuildingTypesListSO buildingTypeList;
-    private Camera m_Camera;
+
 
     private void Awake() {
         Instance = this;
@@ -27,6 +32,7 @@ public class BuildingManager : MonoBehaviour {
                     if (ResourceManager.Instance.CanAfford(activeBuildingType.GetResourceAmounts())) {
                         ResourceManager.Instance.SpendResources(activeBuildingType.GetResourceAmounts());
                         Instantiate(activeBuildingType.GetPrefab(), Utilities.GetMousePosition(), Quaternion.identity);
+                        SetActiveBuildingType(null);
                     }
                     else {
                         TooltipUI.Instance.Show("Cannot afford " + activeBuildingType.GetResourceCostString(), new TooltipUI.TooltipTimer(2f));
@@ -38,8 +44,6 @@ public class BuildingManager : MonoBehaviour {
             }
         }
     }
-
-
     public void SetActiveBuildingType(BuildingTypesSO buildingType) {
         activeBuildingType = buildingType;
         OnActiveBuildingTypeChange?.Invoke(this,
@@ -89,5 +93,9 @@ public class BuildingManager : MonoBehaviour {
         errorMessage = "Cannot spawn far from other buildings!!";
         return false;
 
+    }
+
+    public Building GetHQ() {
+        return HQBuilding;
     }
 }

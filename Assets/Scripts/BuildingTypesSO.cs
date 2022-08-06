@@ -8,9 +8,19 @@ public class BuildingTypesSO : ScriptableObject {
     [SerializeField] private Sprite sprite;
     [SerializeField] private float minBuildingRadius;
     [SerializeField] private ResourceAmount[] constructionResourceCostArray;
+    [SerializeField] private int healthAmountMax;
+    [SerializeField] private bool isResource;
 
     public string GetName() {
         return nameString;
+    }
+
+    public bool IsResource() {
+        return isResource;
+    }
+
+    public int GetHealthAmountMax() {
+        return healthAmountMax;
     }
     public void SetName(string name) {
         nameString = name;

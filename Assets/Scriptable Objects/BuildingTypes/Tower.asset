@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7353474062969814bb7082d405b13055, type: 3}
-  m_Name: WoodHarvester
+  m_Name: Tower
   m_EditorClassIdentifier: 
-  nameString: Wood Harvester
-  prefab: {fileID: 1445141634039410852, guid: 91e0419d92558eb4dade28d6969b6ad9, type: 3}
+  nameString: Tower
+  prefab: {fileID: 1445141634039410852, guid: 18d306cde18723542b5137597a58005d, type: 3}
   resourceGeneratorData:
-    timerMax: 1
-    resourceType: {fileID: 11400000, guid: d1ad6aa4052e7c34da4017055c7cd01f, type: 2}
-    resourceDetectionRadius: 7
-    maxResourceAmount: 7
-  sprite: {fileID: 21300000, guid: 793ca27a5a3378149aaa12abe85933f4, type: 3}
-  minBuildingRadius: 5
+    timerMax: 0
+    resourceType: {fileID: 0}
+    resourceDetectionRadius: 0
+    maxResourceAmount: 0
+  sprite: {fileID: 21300000, guid: 3a549cd61f4d79e4b996c9978dac641f, type: 3}
+  minBuildingRadius: 7
   constructionResourceCostArray:
   - resourceType: {fileID: 11400000, guid: d1ad6aa4052e7c34da4017055c7cd01f, type: 2}
-    amount: 10
-  healthAmountMax: 100
-  isResource: 1
+    amount: 100
+  - resourceType: {fileID: 11400000, guid: 80395b94528b36743b208eac6fdc0a37, type: 2}
+    amount: 50
+  healthAmountMax: 70
+  isResource: 0

@@ -26,9 +26,13 @@ public class BuildingGhost : MonoBehaviour {
         else {
             buildingType = e.activeBuildingType;
             Show(buildingType.GetSprite());
-            resourceNearbyOverlay.Show(buildingType.GetResourceGeneratorData());
-            circle.transform.localScale = new Vector3(buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2, buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2);
-
+            if (e.activeBuildingType.IsResource()) {
+                resourceNearbyOverlay.Show(buildingType.GetResourceGeneratorData());
+                circle.transform.localScale = new Vector3(buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2, buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2);
+            }
+            else {
+                resourceNearbyOverlay.Hide();
+            }
         }
     }
 
