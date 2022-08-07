@@ -28,3 +28,4 @@ MonoBehaviour:
     amount: 50
   healthAmountMax: 70
   isResource: 0
+  constructionTimerMax: 7
