@@ -10,9 +10,14 @@ public class BuildingTypesSO : ScriptableObject {
     [SerializeField] private ResourceAmount[] constructionResourceCostArray;
     [SerializeField] private int healthAmountMax;
     [SerializeField] private bool isResource;
+    [SerializeField] private float constructionTimerMax;
 
     public string GetName() {
         return nameString;
+    }
+
+    public float GetConstructionTimerMax() {
+        return constructionTimerMax;
     }
 
     public bool IsResource() {
