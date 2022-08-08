@@ -6,7 +6,6 @@ public class OptionsUI : MonoBehaviour {
 
     private TextMeshProUGUI soundVolumeText, musicVolumeText;
 
-
     private void Awake() {
         soundVolumeText = transform.Find("soundVolumeText").GetComponent<TextMeshProUGUI>();
         musicVolumeText = transform.Find("musicVolumeText").GetComponent<TextMeshProUGUI>();
@@ -34,6 +33,7 @@ public class OptionsUI : MonoBehaviour {
 
         transform.Find("edgeScrolling").GetComponent<Toggle>().onValueChanged.AddListener((bool set) => {
             CameraHandler.Instance.SetEdgeScrolling(set);
+            Debug.Log($"OnValueChanged: {set}");
         });
 
 
@@ -44,6 +44,7 @@ public class OptionsUI : MonoBehaviour {
         gameObject.SetActive(false);
         transform.Find("edgeScrolling").GetComponent<Toggle>().SetIsOnWithoutNotify(CameraHandler.Instance.GetEdgeScrolling());
     }
+
 
 
     private void UpdateText() {

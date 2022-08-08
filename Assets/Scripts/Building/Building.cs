@@ -3,14 +3,14 @@ using UnityEngine;
 public class Building : MonoBehaviour {
     private HealthSystem healthSystem;
     private BuildingTypesSO buildingType;
-    private Transform circle;
+    //private Transform circle;
     private Transform buildingDemolishButton, buildingRepairButton;
 
     private void Awake() {
         buildingDemolishButton = transform.Find("pfBuildingDemoslish");
         buildingRepairButton = transform.Find("pfBuildingRepair");
-        circle = transform.Find("radius");
-        circle.gameObject.SetActive(false);
+        //circle = transform.Find("radius");
+        //circle.gameObject.SetActive(false);
         HideDemolishButton();
         HideRepairButton();
     }

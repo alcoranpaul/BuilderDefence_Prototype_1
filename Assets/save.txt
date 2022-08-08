@@ -1,0 +1,1 @@
+{"soundVolume":0.10000001639127732,"musicVolume":0.10000001639127732,"edgeScrolling":false}

@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour {
         }
 
 
+
     }
 
     public void PlaySound(Sound sound) {
@@ -42,5 +43,9 @@ public class SoundManager : MonoBehaviour {
 
     public float GetVolume() {
         return volume;
+    }
+
+    public void SetVolume(float volume) {
+        this.volume = volume;
     }
 }
