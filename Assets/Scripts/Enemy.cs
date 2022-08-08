@@ -5,8 +5,6 @@ public class Enemy : MonoBehaviour {
     public static Enemy Create(Vector3 position) {
         Transform pfEnemy = Resources.Load<Transform>("pfEnemy");
         Transform enemyTransform = Instantiate(pfEnemy, position, Quaternion.identity);
-
-
         Enemy enemy = enemyTransform.GetComponent<Enemy>();
         return enemy;
 
@@ -17,17 +15,25 @@ public class Enemy : MonoBehaviour {
     HealthSystem healthSystem;
 
     private void Start() {
-        targetTransform = BuildingManager.Instance.GetHQ().transform;
+        if (BuildingManager.Instance.GetHQ() != null) {
+            targetTransform = BuildingManager.Instance.GetHQ().transform;
+        }
         enemyRigidBody = GetComponent<Rigidbody2D>();
         healthSystem = GetComponent<HealthSystem>();
         lookForTargetTimer = Random.Range(lookForTargetTimer, lookForTargetTimerMax);
         moveSpeed = 6f;
         healthSystem.OnDied += HealthSystem_OnDied;
+        healthSystem.OnDamage += HealthSystem_OnDamage;
 
+    }
+
+    private void HealthSystem_OnDamage(object sender, System.EventArgs e) {
+        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
     }
 
     private void HealthSystem_OnDied(object sender, System.EventArgs e) {
         Destroy(gameObject);
+        SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyDie);
     }
 
     private void Update() {
@@ -85,7 +91,9 @@ public class Enemy : MonoBehaviour {
             }
         }
         if (targetTransform == null) {
-            targetTransform = BuildingManager.Instance.GetHQ().transform;
+            if (BuildingManager.Instance.GetHQ() != null) {
+                targetTransform = BuildingManager.Instance.GetHQ().transform;
+            }
         }
     }
 }

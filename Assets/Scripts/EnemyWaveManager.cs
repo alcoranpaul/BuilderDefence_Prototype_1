@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyWaveManager : MonoBehaviour {
-
+    public static EnemyWaveManager Instance { get; private set; }
     public event EventHandler OnWaveNumberChanged;
 
     private enum State {
@@ -18,6 +18,9 @@ public class EnemyWaveManager : MonoBehaviour {
     private int remainingEnemySpawnAmount, waveNumber;
     private Vector3 spawnPosition;
 
+    private void Awake() {
+        Instance = this;
+    }
     private void Start() {
         state = State.WaitingToSpawnNextWave;
         spawnPosition = spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;

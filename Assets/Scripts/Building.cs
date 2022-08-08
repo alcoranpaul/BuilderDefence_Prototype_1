@@ -3,22 +3,35 @@ using UnityEngine;
 public class Building : MonoBehaviour {
     private HealthSystem healthSystem;
     private BuildingTypesSO buildingType;
-    private Transform buildingDemolishButton;
+    private Transform buildingDemolishButton, buildingRepairButton;
+
     private void Awake() {
+        buildingDemolishButton = transform.Find("pfBuildingDemoslish");
+        buildingRepairButton = transform.Find("pfBuildingRepair");
+        HideDemolishButton();
+        HideRepairButton();
+    }
+    private void Start() {
         buildingType = GetComponent<BuildingTypeHolder>().buildingType;
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetHealthAmountMax(buildingType.GetHealthAmountMax(), true);
-        buildingDemolishButton = transform.Find("pfBuildingDemoslish");
-        HideDemolishButton();
-    }
-    private void Start() {
-
         healthSystem.OnDied += HealthSystem_OnDied;
+        healthSystem.OnDamage += HealthSystem_OnDamage;
+        healthSystem.OnHeal += HealthSystem_OnHeal;
     }
 
+    private void HealthSystem_OnHeal(object sender, System.EventArgs e) {
+        if (healthSystem.IsFullHealth()) HideRepairButton();
+    }
+
+    private void HealthSystem_OnDamage(object sender, System.EventArgs e) {
+        ShowRepairButton();
+        SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingDamaged);
+    }
 
     private void HealthSystem_OnDied(object sender, System.EventArgs e) {
         Destroy(gameObject);
+        SoundManager.Instance.PlaySound(SoundManager.Sound.BuildingDestroyed);
     }
 
     public string GetBuildingName() {
@@ -41,6 +54,16 @@ public class Building : MonoBehaviour {
     private void HideDemolishButton() {
         if (buildingDemolishButton != null) {
             buildingDemolishButton.gameObject.SetActive(false);
+        }
+    }
+    private void ShowRepairButton() {
+        if (buildingRepairButton != null) {
+            buildingRepairButton.gameObject.SetActive(true);
+        }
+    }
+    private void HideRepairButton() {
+        if (buildingRepairButton != null) {
+            buildingRepairButton.gameObject.SetActive(false);
         }
     }
 }

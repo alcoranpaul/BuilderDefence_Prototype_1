@@ -52,10 +52,9 @@ public class ResourceManager : MonoBehaviour {
         }
         return true;
     }
-    public bool SpendResources(ResourceAmount[] resourceAmounts) {
+    public void SpendResources(ResourceAmount[] resourceAmounts) {
         foreach (ResourceAmount resourceAmount in resourceAmounts) {
             resourceAmountDict[resourceAmount.resourceType] -= resourceAmount.amount;
         }
-        return true;
     }
 }
