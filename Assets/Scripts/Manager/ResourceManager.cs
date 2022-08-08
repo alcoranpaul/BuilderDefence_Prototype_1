@@ -13,6 +13,7 @@ public class ResourceManager : MonoBehaviour {
     //Instance variables
     [SerializeField] private List<ResourceAmount> startingResourceList;
     private Dictionary<ResourceTypeSO, int> resourceAmountDict;
+    private int maxResources;
 
     private void Awake() {
         Instance = this;
@@ -34,8 +35,10 @@ public class ResourceManager : MonoBehaviour {
     }
 
     public void AddResource(ResourceTypeSO resourceType, int amount) {
-        resourceAmountDict[resourceType] += amount;
-        OnResourceAmountChange?.Invoke(this, EventArgs.Empty); //Even Trigger and Null check
+        if (resourceAmountDict[resourceType] >= maxResources) {
+            resourceAmountDict[resourceType] += amount;
+            OnResourceAmountChange?.Invoke(this, EventArgs.Empty); //Even Trigger and Null check
+        }
 
     }
 

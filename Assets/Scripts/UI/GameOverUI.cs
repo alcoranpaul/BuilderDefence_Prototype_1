@@ -20,7 +20,7 @@ public class GameOverUI : MonoBehaviour {
     public void Show() {
         gameObject.SetActive(true);
         SoundManager.Instance.PlaySound(SoundManager.Sound.GameOver);
-        transform.Find("waveSurvived_Text").GetComponent<TextMeshProUGUI>()
+        transform.Find("wavesSurvived_Text").GetComponent<TextMeshProUGUI>()
             .SetText($"You survived {EnemyWaveManager.Instance.GetWaveNumber()} waves!");
     }
 

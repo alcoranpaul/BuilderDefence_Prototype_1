@@ -25,8 +25,8 @@ public class EnemyWaveManager : MonoBehaviour {
         state = State.WaitingToSpawnNextWave;
         spawnPosition = spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;
         nextWaveSpawnPositionTransform.position = spawnPosition;
-        nextWaveSpawnTimer = 3f;
         waveTimer = 15f;
+        nextWaveSpawnTimer = waveTimer;
     }
 
     private void Update() {
@@ -58,7 +58,13 @@ public class EnemyWaveManager : MonoBehaviour {
 
 
     private void SpawnWave() {
-        remainingEnemySpawnAmount = 5 + ((int)UnityEngine.Random.Range(0f, 5f) * waveNumber);
+        if (waveNumber >= 15) {
+            remainingEnemySpawnAmount = (int)UnityEngine.Random.Range(1f, 5f) + (Mathf.FloorToInt(UnityEngine.Random.Range(waveNumber / 3, waveNumber) * waveNumber / 2));
+        }
+        else {
+            remainingEnemySpawnAmount = (int)UnityEngine.Random.Range(1f, 5f) + (Mathf.FloorToInt(UnityEngine.Random.Range(0f, waveNumber / 3) * waveNumber / 2));
+        }
+
         Debug.Log(string.Format("Enemies Spawned: {0}", remainingEnemySpawnAmount));
         state = State.SpawningWave;
         waveNumber++;
@@ -74,5 +80,9 @@ public class EnemyWaveManager : MonoBehaviour {
 
     public Vector3 GetSpawnPosition() {
         return spawnPosition;
+    }
+
+    public int GetRemainingEnemies() {
+        return remainingEnemySpawnAmount;
     }
 }

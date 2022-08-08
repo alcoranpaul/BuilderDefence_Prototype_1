@@ -92,10 +92,9 @@ public class BuildingManager : MonoBehaviour {
                 }
             }
         }
-
-        if (buildingType.HasResourceGeneratorData()) {
+        if (buildingType.IsResource()) {
             ResourceGeneratorData resourceGeneratorData = buildingType.GetResourceGeneratorData();
-            int nearbyResourceAmount = ResourceGenerator.GetNearbyResourceAmount(resourceGeneratorData, transform.parent.position);
+            int nearbyResourceAmount = ResourceGenerator.GetNearbyResourceAmount(resourceGeneratorData, position);
 
             if (nearbyResourceAmount == 0) {
                 errorMessage = "There are no resources nearby";

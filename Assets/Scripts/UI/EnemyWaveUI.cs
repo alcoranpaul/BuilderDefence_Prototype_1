@@ -4,12 +4,13 @@ using UnityEngine;
 public class EnemyWaveUI : MonoBehaviour {
 
     [SerializeField] private EnemyWaveManager enemyWaveManager;
-    private TextMeshProUGUI waveText, waveMessage;
+    private TextMeshProUGUI waveText, waveMessage, numEnemies;
     private RectTransform enemySpawnIndicator, enemyIndicator;
     private Camera m_camera;
     private void Awake() {
         waveText = transform.Find("waveNumber_Text").GetComponent<TextMeshProUGUI>();
         waveMessage = transform.Find("waveMessage_Text").GetComponent<TextMeshProUGUI>();
+        numEnemies = transform.Find("numEnemies_Text").GetComponent<TextMeshProUGUI>();
         enemySpawnIndicator = transform.Find("enemyWaveSpawnPositionIndicatior").GetComponent<RectTransform>();
         enemyIndicator = transform.Find("enemyIndicator").GetComponent<RectTransform>();
 
@@ -18,13 +19,17 @@ public class EnemyWaveUI : MonoBehaviour {
     private void Start() {
         enemyWaveManager.OnWaveNumberChanged += EnemyWaveManager_OnWaveNumberChanged;
         string message = string.Format("Wave: {0}", enemyWaveManager.GetWaveNumber());
-        m_camera = Camera.main;
+        string numEnemiesText = string.Format("Enemies: {0}", enemyWaveManager.GetRemainingEnemies());
         SetWaveNumberText(message);
+        SetNumberOfEnemies(numEnemiesText);
+        m_camera = Camera.main;
     }
 
     private void EnemyWaveManager_OnWaveNumberChanged(object sender, System.EventArgs e) {
         string message = string.Format("Wave: {0}", enemyWaveManager.GetWaveNumber());
+        string numEnemiesText = string.Format("Enemies: {0}", enemyWaveManager.GetRemainingEnemies());
         SetWaveNumberText(message);
+        SetNumberOfEnemies(numEnemiesText);
     }
 
     private void Update() {
@@ -92,6 +97,9 @@ public class EnemyWaveUI : MonoBehaviour {
 
     private void SetWaveNumberText(string text) {
         waveText.SetText(text);
+    }
+    private void SetNumberOfEnemies(string text) {
+        numEnemies.SetText(text);
     }
 
 }

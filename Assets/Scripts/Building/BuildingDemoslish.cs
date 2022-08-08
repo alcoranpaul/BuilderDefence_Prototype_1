@@ -10,6 +10,7 @@ public class BuildingDemoslish : MonoBehaviour {
                 ResourceManager.Instance.AddResource(resourceAmount.resourceType, Mathf.FloorToInt(resourceAmount.amount * 0.6f));
             }
             Destroy(building.gameObject);
+            Instantiate(GameAssets.Instance.pfBuildingDestroyedParticles, transform.position, Quaternion.identity);
         });
     }
 

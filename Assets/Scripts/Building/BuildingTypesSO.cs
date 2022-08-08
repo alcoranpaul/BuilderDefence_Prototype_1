@@ -16,14 +16,14 @@ public class BuildingTypesSO : ScriptableObject {
         return nameString;
     }
 
-    public bool HasResourceGeneratorData() {
-        return resourceGeneratorData != null;
-    }
 
     public float GetConstructionTimerMax() {
         return constructionTimerMax;
     }
 
+    /// <summary>
+    /// Returns true if the building generates resources.
+    /// </summary>
     public bool IsResource() {
         return isResource;
     }
