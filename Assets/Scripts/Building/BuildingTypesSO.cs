@@ -16,6 +16,10 @@ public class BuildingTypesSO : ScriptableObject {
         return nameString;
     }
 
+    public bool HasResourceGeneratorData() {
+        return resourceGeneratorData != null;
+    }
+
     public float GetConstructionTimerMax() {
         return constructionTimerMax;
     }

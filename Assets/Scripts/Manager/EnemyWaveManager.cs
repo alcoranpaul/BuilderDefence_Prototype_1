@@ -14,7 +14,7 @@ public class EnemyWaveManager : MonoBehaviour {
     [SerializeField] private List<Transform> spawnPositionTransformList;
     [SerializeField] private Transform nextWaveSpawnPositionTransform;
     private State state;
-    private float nextWaveSpawnTimer, nextEnemySpawnTimer;
+    private float nextWaveSpawnTimer, nextEnemySpawnTimer, waveTimer;
     private int remainingEnemySpawnAmount, waveNumber;
     private Vector3 spawnPosition;
 
@@ -26,6 +26,7 @@ public class EnemyWaveManager : MonoBehaviour {
         spawnPosition = spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;
         nextWaveSpawnPositionTransform.position = spawnPosition;
         nextWaveSpawnTimer = 3f;
+        waveTimer = 15f;
     }
 
     private void Update() {
@@ -47,7 +48,7 @@ public class EnemyWaveManager : MonoBehaviour {
                             state = State.WaitingToSpawnNextWave;
                             spawnPosition = spawnPositionTransformList[UnityEngine.Random.Range(0, spawnPositionTransformList.Count)].position;
                             nextWaveSpawnPositionTransform.position = spawnPosition;
-                            nextWaveSpawnTimer = 10f;
+                            nextWaveSpawnTimer = waveTimer;
                         }
                     }
                 }

@@ -93,6 +93,17 @@ public class BuildingManager : MonoBehaviour {
             }
         }
 
+        if (buildingType.HasResourceGeneratorData()) {
+            ResourceGeneratorData resourceGeneratorData = buildingType.GetResourceGeneratorData();
+            int nearbyResourceAmount = ResourceGenerator.GetNearbyResourceAmount(resourceGeneratorData, transform.parent.position);
+
+            if (nearbyResourceAmount == 0) {
+                errorMessage = "There are no resources nearby";
+                return false;
+            }
+        }
+
+
         //Am I too far from other buildings?
         float maxConstructionRadius = 25f;
         collider2D = Physics2D.OverlapCircleAll(position, maxConstructionRadius);

@@ -3,8 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     public static Enemy Create(Vector3 position) {
-        Transform pfEnemy = Resources.Load<Transform>("pfEnemy");
-        Transform enemyTransform = Instantiate(pfEnemy, position, Quaternion.identity);
+        Transform enemyTransform = Instantiate(GameAssets.Instance.pfEnemy, position, Quaternion.identity);
         Enemy enemy = enemyTransform.GetComponent<Enemy>();
         return enemy;
 
@@ -12,7 +11,7 @@ public class Enemy : MonoBehaviour {
     private Transform targetTransform;
     private Rigidbody2D enemyRigidBody;
     private float moveSpeed, lookForTargetTimer, lookForTargetTimerMax = .2f;
-    HealthSystem healthSystem;
+    private HealthSystem healthSystem;
 
     private void Start() {
         if (BuildingManager.Instance.GetHQ() != null) {
@@ -29,11 +28,16 @@ public class Enemy : MonoBehaviour {
 
     private void HealthSystem_OnDamage(object sender, System.EventArgs e) {
         SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyHit);
+        CameraShake.Instance.ShakeCamera(3f, 0.1f);
+        ChromaticAborationEffect.Instance.SetWeight(0.5f);
     }
 
     private void HealthSystem_OnDied(object sender, System.EventArgs e) {
         Destroy(gameObject);
+        CameraShake.Instance.ShakeCamera(5f, 0.12f);
+        ChromaticAborationEffect.Instance.SetWeight(0.5f);
         SoundManager.Instance.PlaySound(SoundManager.Sound.EnemyDie);
+        Instantiate(GameAssets.Instance.pfEnemyDieParticles, transform.position, Quaternion.identity);
     }
 
     private void Update() {
@@ -66,7 +70,7 @@ public class Enemy : MonoBehaviour {
         if (building != null) {
             HealthSystem healthSystem = building.GetComponent<HealthSystem>();
             healthSystem.Damage(10);
-            Destroy(gameObject); //Destroy Self
+            this.healthSystem.Damage(999);
         }
 
     }

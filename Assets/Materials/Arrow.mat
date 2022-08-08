@@ -57,7 +57,7 @@ Material:
     - _EnableExternalAlpha: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmmissionColor: {r: 0.50964856, g: 4.2555656, b: 0, a: 1}
+    - _EmmissionColor: {r: 92.36079, g: 766.9961, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
