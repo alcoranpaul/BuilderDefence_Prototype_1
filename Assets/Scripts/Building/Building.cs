@@ -10,6 +10,7 @@ public class Building : MonoBehaviour {
         buildingDemolishButton = transform.Find("pfBuildingDemoslish");
         buildingRepairButton = transform.Find("pfBuildingRepair");
         circle = transform.Find("radius");
+        circle.gameObject.SetActive(false);
         HideDemolishButton();
         HideRepairButton();
     }
@@ -17,9 +18,9 @@ public class Building : MonoBehaviour {
         buildingType = GetComponent<BuildingTypeHolder>().buildingType;
         healthSystem = GetComponent<HealthSystem>();
         healthSystem.SetHealthAmountMax(buildingType.GetHealthAmountMax(), true);
-        if (circle != null) {
-            circle.transform.localScale = new Vector3(buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2, buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2);
-        }
+        //if (circle != null) {
+        //    circle.transform.localScale = new Vector3(buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2, buildingType.GetResourceGeneratorData().resourceDetectionRadius * 2);
+        //}
         healthSystem.OnDied += HealthSystem_OnDied;
         healthSystem.OnDamage += HealthSystem_OnDamage;
         healthSystem.OnHeal += HealthSystem_OnHeal;

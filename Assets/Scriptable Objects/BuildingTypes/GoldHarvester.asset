@@ -15,12 +15,12 @@ MonoBehaviour:
   nameString: Gold Harvester
   prefab: {fileID: 1445141634039410852, guid: 43be68019866f4b4d83108cc51180605, type: 3}
   resourceGeneratorData:
-    timerMax: 5
+    timerMax: 7
     resourceType: {fileID: 11400000, guid: 239cb998f2b4b5f488bf9abff8226694, type: 2}
     resourceDetectionRadius: 7
     maxResourceAmount: 3
   sprite: {fileID: 21300000, guid: 8ead931dd91bff8489e75de9c414f17f, type: 3}
-  minBuildingRadius: 10
+  minBuildingRadius: 7
   constructionResourceCostArray:
   - resourceType: {fileID: 11400000, guid: d1ad6aa4052e7c34da4017055c7cd01f, type: 2}
     amount: 50

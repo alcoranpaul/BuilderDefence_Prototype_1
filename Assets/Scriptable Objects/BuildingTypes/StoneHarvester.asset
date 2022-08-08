@@ -15,10 +15,10 @@ MonoBehaviour:
   nameString: Stone Harvester
   prefab: {fileID: 1445141634039410852, guid: 09949a847eea1d44a9f78ec006e47500, type: 3}
   resourceGeneratorData:
-    timerMax: 2
+    timerMax: 5
     resourceType: {fileID: 11400000, guid: 80395b94528b36743b208eac6fdc0a37, type: 2}
-    resourceDetectionRadius: 5
-    maxResourceAmount: 4
+    resourceDetectionRadius: 7
+    maxResourceAmount: 7
   sprite: {fileID: 21300000, guid: 2263e91ebcd2a254dab5f4caccb4a7af, type: 3}
   minBuildingRadius: 7
   constructionResourceCostArray:

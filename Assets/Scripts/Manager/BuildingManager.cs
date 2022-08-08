@@ -7,7 +7,7 @@ public class BuildingManager : MonoBehaviour {
     private BuildingTypesSO activeBuildingType;
     private BuildingTypesListSO buildingTypeList;
     private Camera m_Camera;
-    //private RectTransform transitionImage;
+
 
     public static BuildingManager Instance { get; private set; } //Singleton
 
@@ -21,17 +21,11 @@ public class BuildingManager : MonoBehaviour {
     private void Awake() {
         Instance = this;
         buildingTypeList = Resources.Load<BuildingTypesListSO>(typeof(BuildingTypesListSO).Name);
-        //transitionImage = transform.Find("transitionUI").GetComponent<RectTransform>();
+
     }
     private void Start() {
         m_Camera = Camera.main;
         HQBuilding.GetComponent<HealthSystem>().OnDied += HQ_OnDied;
-
-        //transitionImage.gameObject.SetActive(true);
-        //LeanTween.scale(transitionImage, new Vector3(1, 1, 1), 0);
-        //LeanTween.scale(transitionImage, Vector3.zero, 2f).setEase(LeanTweenType.easeOutCirc).setOnComplete(() => {
-        //    transitionImage.gameObject.SetActive(false);
-        //});
     }
 
     private void HQ_OnDied(object sender, EventArgs e) {
